@@ -24,7 +24,7 @@ NUM_WORKERS = 4
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-def main(): 
+def train_attack_model(): 
     csv_files = find_all_file_names(DATASET_DIRECTORY)
     input_features = len(pd.read_csv(csv_files[0]).columns) - 1
 
