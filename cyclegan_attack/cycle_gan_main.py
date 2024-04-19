@@ -7,13 +7,12 @@ from tqdm import tqdm
 from torch.cuda.amp import GradScaler
 from sklearn.preprocessing import StandardScaler
 from utils.file_utils import find_all_file_names
-from generator.generator import Generator
-from discriminator.discriminator import Discriminator
-from dataset.cici_dataset import CICIDataset
+from cyclegan_attack.generator import Generator
+from cyclegan_attack.discriminator import Discriminator
+from cyclegan_attack.cici_dataset import CICIDataset
 from torch.utils.data import DataLoader
-from model.train_model import train_model
+from cyclegan_attack.train_model import train_model
 
-DATASET_DIRECTORY = './../CICIoT2023/'
 LEARNING_RATE = 0.0002
 LAMBDA_ADVERS = 1
 LAMBDA_IDENTITY = 0.5
@@ -25,7 +24,7 @@ NUM_WORKERS = 4
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 def train_attack_model(): 
-    csv_files = find_all_file_names(DATASET_DIRECTORY)
+    csv_files = find_all_file_names()
     input_features = len(pd.read_csv(csv_files[0]).columns) - 1
 
     gen_attack = Generator(input_features, input_features).to(DEVICE)
@@ -78,6 +77,3 @@ def train_attack_model():
             loader = DataLoader(dataset,batch_size=BATCH_SIZE,shuffle=True,num_workers=2, pin_memory=True)
             train_model(loader,des_benign, des_attack, gen_benign, gen_attack, opt_disc, opt_gen,L1, mse,
                         discriminator_scaler, generator_scaler, attack_standard_scalar, benign_standard_scalar)
-    #save_checkpoint()
-if __name__ == "__main__":
-    main()

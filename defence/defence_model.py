@@ -65,11 +65,8 @@ def train_defence_model():
             for inputs, labels in val_loader:
                 outputs = model(inputs)
                 outputs = torch.squeeze(outputs, -1)
-                
                 total += labels.size(0)
-                print(f'Totals {total}')
                 correct += (outputs == labels).sum().item()
-                print(f'Correct  {correct}')
-
+               
         accuracy = 100 * correct / total
         print(f'Accuracy on validation set: {accuracy:.2f}%')
