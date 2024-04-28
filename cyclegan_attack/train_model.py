@@ -6,6 +6,8 @@ import torch.optim as optim
 from tqdm import tqdm
 from torch.autograd import gradcheck
 import pandas as pd
+from cyclegan_attack.csv_writer import write_to_csv
+import numpy as np
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 LEARNING_RATE = 0.0002
@@ -83,13 +85,21 @@ def train_model(loader, disc_benign, disc_attack, genr_benign, genr_attack,
         if idx % 200 == 0:
          
           # Convert tensor to a DataFrame
+          benign_data = fake_benign.detach().cpu().reshape(1, -1).numpy()
+
           benign_tensor_df = pd.DataFrame(fake_benign.detach().cpu().reshape(1, -1).numpy())
-          print(fake_benign.shape)
           print('@@@@@@ BENIGN @@@@@@@@@')
+          benign_row_data = np.append(benign_data, 'BenignTraffic')
+          write_to_csv('./CICIoT2023/generated.csv', benign_row_data)
+          print(benign_tensor_df)
+
           print(benign_standard_scalar.inverse_transform(benign_tensor_df))
           print('@@@@@@ ATTACK @@@@@@@@@')
           attack_tensor_df = pd.DataFrame(fake_attack.detach().cpu().reshape(1, -1).numpy())
           print(attack_standard_scalar.inverse_transform(attack_tensor_df))
+          attack_row_data = np.append(benign_data, 'AttackTraffic')
+          write_to_csv('./CICIoT2023/generated.csv', attack_row_data)
+          print(benign_tensor_df)
 
           #print(attack_standard_scalar.inverse_transform(fake_attack.detach().cpu().reshape(-1, 1)))
 

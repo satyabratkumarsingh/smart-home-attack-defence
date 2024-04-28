@@ -9,4 +9,4 @@ This project is divided into two main components:
 
 Both sections of the project are trained using the comprehensive dataset from the Canadian Institute for Cybersecurity (CIC), which consists of 169 CSV files. These files are not included in the repository due to size limitations imposed by Git.
 
-The section 1 was trained on GPU and 
+When you run the first part, it will generate the generated.csv file, which will have both attack and benign data.
