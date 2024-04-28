@@ -1,5 +1,8 @@
 import torch.nn as nn
 
+"""
+ A neural network which can generate attack and benign data
+"""
 class Generator(nn.Module):
     def __init__(self, input_size, output_size):
         super(Generator, self).__init__()

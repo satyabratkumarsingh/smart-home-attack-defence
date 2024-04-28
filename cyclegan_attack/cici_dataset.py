@@ -4,6 +4,9 @@ from torch.utils.data import Dataset
 import numpy as np
 import pandas as pd
 
+"""
+ This class is rsponsible for loading the CSV files from CIC dataset converting the features and labels into tensors
+"""
 class CICIDataset(Dataset):
     def __init__(self, csv_file, attack_features, attack_labels, benign_features, benign_labels):
        

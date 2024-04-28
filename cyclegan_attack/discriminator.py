@@ -3,6 +3,9 @@ import torch.nn.init as init
 
 import torch.nn as nn
 
+"""
+ This is the descriminator, which can differentaite between the fake and real attack for both benign and attack traffic.
+"""
 class Discriminator(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(Discriminator, self).__init__()

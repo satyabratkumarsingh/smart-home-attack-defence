@@ -13,6 +13,10 @@ LAMBDA_ADVERS = 1
 LAMBDA_IDENTITY = 0.5
 LAMBDA_CYCLE = 10
 
+"""
+ Train generator and descrimnator for attack and benign data  
+"""
+
 def train_model(loader, disc_benign, disc_attack, genr_benign, genr_attack,
     opt_disc, opt_gen, l1, mse, d_scaler, g_scaler, attack_standard_scalar, benign_standard_scalar
 ):
